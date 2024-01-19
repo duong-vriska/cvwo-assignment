@@ -8,10 +8,10 @@ type Post struct {
 
 type PostStorage interface {
 	List() []*Post
-	Get(string) *Post
-	Update(string, Post) *Post
+	Get(int) *Post
+	Update(int, Post) *Post
 	Create(Post)
-	Delete(string) *Post
+	Delete(int) *Post
 }
 
 type PostStore struct{}
