@@ -1,0 +1,29 @@
+.view-post {
+    padding: 20px;
+    padding-bottom: 10px;
+    font-family: "Open Sans";
+}
+
+.view-post .post-info {
+    font-size: 12px;
+}
+
+.view-post .post-title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.view-post .post-content {
+    padding-top: 10px;
+    padding-block-end: 20px;
+    font-size: 15px;
+    font-weight: normal; 
+}
+
+.view-post .post-comments {
+    padding-left: 30px;
+}
+
+.view-post .post-options {
+    padding-left: 50px;
+}
