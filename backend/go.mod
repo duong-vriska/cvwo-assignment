@@ -1,4 +1,4 @@
-module github.com/duong-vriska/cvwo-assignment
+module github.com/duong-vriska/cvwo-assignment/backend
 
 go 1.21.5
 
