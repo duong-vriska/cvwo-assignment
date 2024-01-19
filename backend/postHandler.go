@@ -1,4 +1,4 @@
-package postHandler
+package main
 
 import (
 	"encoding/json"
