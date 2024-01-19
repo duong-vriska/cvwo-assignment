@@ -1,0 +1,51 @@
+input {
+    width: 700px;
+    padding: 10px;
+    font-family: "Open Sans";
+}
+
+textarea {
+    width: 700px;
+    height: 300px;
+    padding: 10px;
+    font-family: "Open Sans";
+    resize: none;
+}
+
+.create-post {
+    margin-left: 20px;
+}
+
+.create-post .select-category {
+    width: 40%;
+    padding-bottom: 10px;
+    font-family: "Open Sans";
+    font-size: 13px;
+}
+
+.create-post .create-title {
+    padding-bottom: 10px;
+}
+
+.create-post .create-content {
+    padding-bottom: 10px;
+}
+
+.create-post .create-button {
+    border-radius: 30px;
+    padding: 5px 15px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    background-color: black;
+    color: white;
+    font-family: "Open Sans";
+    left: 640px;
+    position: relative;
+    transition: 0.2s;
+}
+
+.create-post .create-button:hover {
+    background-color: white;
+    color: gray;
+    cursor: pointer;
+}
