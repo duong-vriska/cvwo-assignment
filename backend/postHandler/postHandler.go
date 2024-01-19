@@ -5,7 +5,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"net/http"
 	"fmt"
-	"github.com/duong-vriska/cvwo-assignment/backend/posts"
+	_ "github.com/duong-vriska/cvwo-assignment/backend/posts"
 )
 
 type PostHandler struct {
