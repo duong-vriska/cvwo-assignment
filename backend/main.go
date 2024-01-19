@@ -4,8 +4,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
-	"github.com/duong-vriska/cvwo-assignment/backend/posts"
-	"github.com/duong-vriska/cvwo-assignment/backend/postHandler"
+	. "github.com/duong-vriska/cvwo-assignment/backend/postHandler"
 
 	"net/http"
 )

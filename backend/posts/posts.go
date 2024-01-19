@@ -1,7 +1,7 @@
 package posts
 
 type Post struct {
-	ID      string `json:"id"`
+	ID      int `json:"id"`
 	Title   string `json:"title"`
 	Content string `json:"content"`
 }
@@ -18,13 +18,13 @@ type PostStore struct{}
 
 var posts = []*Post{
 	{
-		ID:      "1",
+		ID:      1,
 		Title:   "Delicious Chicken",
 		Content: "Lorem ipsum",
 	},
 }
 
-func (b PostStore) Get(id string) *Post {
+func (b PostStore) Get(id int) *Post {
 	for _, post := range posts {
 		if post.ID == id {
 			return post
@@ -41,7 +41,7 @@ func (b PostStore) Create(post Post) {
 	posts = append(posts, &post)
 }
 
-func (b PostStore) Delete(id string) *Post {
+func (b PostStore) Delete(id int) *Post {
 	for i, post := range posts {
 		if post.ID == id {
 			posts = append(posts[:i], posts[i+1:]...)
@@ -51,7 +51,7 @@ func (b PostStore) Delete(id string) *Post {
 	return nil
 }
 
-func (b PostStore) Update(id string, postUpdate Post) *Post {
+func (b PostStore) Update(id int, postUpdate Post) *Post {
 	for i, post := range posts {
 		if post.ID == id {
 			posts[i] = &postUpdate
@@ -65,7 +65,7 @@ func listPosts() []*Post {
 	return posts
 }
 
-func getPost(id string) *Post {
+func getPost(id int) *Post {
 	for _, post := range posts {
 		if post.ID == id {
 			return post
@@ -78,7 +78,7 @@ func storePost(post Post) {
 	posts = append(posts, &post)
 }
 
-func deletePost(id string) *Post {
+func deletePost(id int) *Post {
 	for i, post := range posts {
 		if post.ID == id {
 			posts = append(posts[:i], (posts)[i+1:]...)
@@ -87,7 +87,7 @@ func deletePost(id string) *Post {
 	}
 	return nil
 }
-func updatePost(id string, postUpdate Post) *Post {
+func updatePost(id int, postUpdate Post) *Post {
 	for i, post := range posts {
 		if post.ID == id {
 			posts[i] = &postUpdate

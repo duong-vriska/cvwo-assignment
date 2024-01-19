@@ -4,8 +4,7 @@ import (
 	"encoding/json"
 	"github.com/go-chi/chi/v5"
 	"net/http"
-	"fmt"
-	_ "github.com/duong-vriska/cvwo-assignment/backend/posts"
+	. "github.com/duong-vriska/cvwo-assignment/backend/posts"
 )
 
 type PostHandler struct {
@@ -40,7 +39,11 @@ func (b PostHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
+	post.ID = len(b.storage.List()) + 1
+
 	b.storage.Create(post)
+
 	err = json.NewEncoder(w).Encode(post)
 	if err != nil {
 		http.Error(w, "Internal error", http.StatusInternalServerError)

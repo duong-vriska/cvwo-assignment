@@ -19,11 +19,6 @@ function PostCreator() {
         baseURL: "http://localhost:4000"
      });
  
-    // GET with Axios
- 
-    // Delete with Axios
- 
-    // Post with Axios
     const addPost = async (title: any, content: any) => {
        let response = await client.post('/posts/new', {
           title: title,
