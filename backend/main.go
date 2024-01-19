@@ -9,6 +9,11 @@ import (
 
 	"net/http"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	_ "myapp/postHandler"
+	_ "myapp/posts"
+>>>>>>> c5be727615b4bd40ca8d94778bcd2e1195f158cc
 =======
 	_ "myapp/postHandler"
 	_ "myapp/posts"
