@@ -51,7 +51,7 @@ export const ViewPost = (props: any) => {
                     </IconButton>
                 </span>
                 <span className = "post-edit">
-                    <Link to={`/posts/${props.id}/edit`}> Edit Post
+                    <Link to={`/posts/${props.id}/edit`}>
                     <IconButton>
                         <BsThreeDots/>
                     </IconButton>

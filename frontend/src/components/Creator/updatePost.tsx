@@ -34,6 +34,7 @@ export default function PostUpdate() {
     const editPost = async (title: string, content: string) => {
         try {
             const response = await axios.put(`http://localhost:4000/posts/${id}`, {
+                id: id,
                 title: title,
                 content: content,
             });

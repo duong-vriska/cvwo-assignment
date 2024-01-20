@@ -56,6 +56,10 @@ func (b PostHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 func (b PostHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 	var post Post
 	id := chi.URLParam(r, "id")
+    if id == "" {
+        http.Error(w, "Invalid or missing 'id' parameter", http.StatusBadRequest)
+        return
+    }
 	err := json.NewDecoder(r.Body).Decode(&post)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

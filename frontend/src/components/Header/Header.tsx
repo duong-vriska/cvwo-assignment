@@ -8,7 +8,10 @@ export const Header = () => {
   return (
     <header className="header">
       <div className="text-wrapper"> 
-      <a href = "/"><img src="logo-mowou.png" width="40%" height="40%"></img></a>
+      <div className = "logo">
+        <a href = "/">
+          <img src="logo-mowou.png" width="100" height="50"></img></a>
+      </div>
       </div>
       <div className ="search-bar">
         <SearchBar></SearchBar>

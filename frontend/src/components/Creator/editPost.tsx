@@ -1,14 +1,15 @@
 import {useEffect, useState} from 'react'
-import {useNavigate, useParams, useDispatch} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios'
 import { SelectCategory } from './selectCategory'
+import { get } from 'http'
 
 export default function EditPost(props: {
     [x: string]: any; editPost: (arg0: string, arg1: string) => void; 
 }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const navigate = useNavigate();
+    let navigate = useNavigate();
     let {id} = useParams();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
