@@ -1,10 +1,14 @@
-package main
+package utils
 
 import (
    "crypto/rand"
    "encoding/base64"
-   "fmt"
 )
+
+func Substring(s string, start int, end int) string {
+   r := []rune(s)
+   return string(r[start:end])
+}
 
 func GenerateRandomString(length int) string {
    b := make([]byte, length)
@@ -12,6 +16,8 @@ func GenerateRandomString(length int) string {
    if err != nil {
       panic(err)
    }
-   return base64.StdEncoding.EncodeToString(b)
+
+   rndstring := base64.URLEncoding.EncodeToString(b)
+   return Substring(rndstring, 0, length)
 }
 

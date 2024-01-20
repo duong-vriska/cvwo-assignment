@@ -3,7 +3,6 @@ package postHandler
 import (
 	"encoding/json"
 	"net/http"
-	"strconv"
 
 	"github.com/go-chi/chi/v5"
 	. "github.com/duong-vriska/cvwo-assignment/backend/posts"
@@ -41,8 +40,6 @@ func (b PostHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
-	post.ID = len(b.storage.List()) + 1
 
 	b.storage.Create(post)
 

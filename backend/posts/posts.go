@@ -1,7 +1,7 @@
 package posts
 
 import (
-	"github.com/duong-vriska/cvwo-assignment/backend/utils"
+	. "github.com/duong-vriska/cvwo-assignment/backend/utils"
 )
 
 type Post struct {
@@ -22,9 +22,9 @@ type PostStore struct{}
 
 var posts = []*Post{
 	{
-		ID:      1,
-		Title:   "Delicious Chicken",
-		Content: "Lorem ipsum",
+		ID:      "1",
+		Title:   "The first post",
+		Content: "Mowou is a great place to discuss and share your ideas",
 	},
 }
 
@@ -42,7 +42,7 @@ func (b PostStore) List() []*Post {
 }
 
 func (b PostStore) Create(post Post) {
-	post.ID = generateRandomString(7) 
+	post.ID = GenerateRandomString(5) 
 	posts = append(posts, &post)
 }
 
