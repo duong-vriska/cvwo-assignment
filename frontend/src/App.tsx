@@ -13,8 +13,8 @@ function App() {
   return (
     <div className="App">
       <Header></Header>
-      <HomePosts></HomePosts>
       <Routes>
+        <Route path = "/" element = {<HomePosts/>}></Route>
         <Route path = "/posts" element = {<ViewThread/>}
           ></Route>
         <Route path = "/new" element = { <PostCreator/>}></Route>

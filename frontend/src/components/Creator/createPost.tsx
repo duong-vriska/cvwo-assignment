@@ -28,9 +28,7 @@ function PostCreator() {
     }; 
    
   return (
-    <main>
       <AddPost addPost={addPost}/>
-   </main>
   )
 }
 
