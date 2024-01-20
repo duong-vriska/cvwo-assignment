@@ -1,8 +1,7 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react'
 import axios from 'axios'
-import "./Posts.css"
-import { ViewPost } from "./viewPost"
-import { ViewComment } from "./viewComment"
+import { ViewPost } from "../Posts/viewPost"
+import { ViewComment } from "../Comment/viewComment"
 import { useParams } from 'react-router-dom'
 
 interface Post {

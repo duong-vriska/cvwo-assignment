@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import axios from 'axios'; 
 import {useParams} from 'react-router-dom';
 import EditPost from './editPost';
-import "./Creator.css"
+import "./Editor.css"
 
 interface Post {
     id: string;

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios'
-import { SelectCategory } from './selectCategory'
+import { SelectCategory } from '../Creator/selectCategory'
 import { get } from 'http'
 
 export default function EditPost(props: {

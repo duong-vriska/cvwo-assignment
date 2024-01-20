@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Header } from "./components/Header"
-import PostCreator from "./components/Creator/createPost"
-import { ViewPost, ViewThread } from "./components/Posts"
+import { PostCreator } from "./components/Creator/index"
+import { ViewThread } from "./components/Thread/index"
 import { CardPost } from "./components/Home"
 import { HomePosts } from "./components/Home/index"
-import PostUpdate from "./components/Creator/updatePost"
+import PostUpdate from "./components/Editor/updatePost"
 
 function App() {
 

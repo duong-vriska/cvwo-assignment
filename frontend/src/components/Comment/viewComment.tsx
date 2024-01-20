@@ -1,12 +1,12 @@
 import React from 'react'
-import "./Posts.css"
-import { CreateComment } from '../Creator/createComment'
+import "./Comment.css"
+import { CommentCreator } from '../Creator/index'
 import { Comments } from './singleComments'
 
 export const ViewComment = () => {
     return (
     <div className = "comment-wrapper">
-        <CreateComment></CreateComment>
+        <CommentCreator></CommentCreator>
         <Comments></Comments>
     </div>
     )

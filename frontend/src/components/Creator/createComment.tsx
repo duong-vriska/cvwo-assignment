@@ -1,7 +1,6 @@
-import React from 'react'
 import "./Creator.css"
 
-export const CreateComment = () => {
+export const CommentCreator = () => {
    return (
         <div className="comments-section">
             <h2> Comments </h2>
@@ -19,3 +18,4 @@ export const CreateComment = () => {
         </div>
     )
 }
+

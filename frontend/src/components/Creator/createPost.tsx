@@ -1,9 +1,6 @@
 import {useState, useEffect} from 'react';
-import ReactDOM from 'react-dom/client';
 import axios from 'axios'; 
-import AddPost from '../Creator/addPost';
-import {ViewPost} from '../Posts/viewPost';
-import { SelectCategory } from './selectCategory';
+import {AddPost} from './addPost';
 import "./Creator.css"
 
 interface Post {
@@ -12,7 +9,7 @@ interface Post {
     content: string;
 }
 
-function PostCreator() {
+export function PostCreator() {
     const [posts, setPosts] = useState<Post[]>([]);
 
     const client = axios.create({
@@ -32,4 +29,3 @@ function PostCreator() {
   )
 }
 
-export default PostCreator;

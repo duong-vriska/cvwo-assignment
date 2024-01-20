@@ -2,7 +2,7 @@ import {useState} from 'react'
 import { SelectCategory } from './selectCategory';
 import { useNavigate} from 'react-router-dom';
 
-export default function AddPost(props: { addPost: (arg0: string, arg1: string) => void; }) {
+export function AddPost(props: { addPost: (arg0: string, arg1: string) => void; }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const navigate = useNavigate();
@@ -11,7 +11,9 @@ export default function AddPost(props: { addPost: (arg0: string, arg1: string) =
         props.addPost(title, content);
         setTitle('');
         setContent('');
-        navigate(`/posts`);
+        setTimeout(() => {
+            navigate(`/posts`);
+        }, 10);
     };    
     
     return (
@@ -49,4 +51,3 @@ export default function AddPost(props: { addPost: (arg0: string, arg1: string) =
         </div>
     )
 }
-
