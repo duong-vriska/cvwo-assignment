@@ -6,12 +6,14 @@ import { Header } from "./components/Header"
 import PostCreator from "./components/Creator/createPost"
 import { ViewPost, ViewThread } from "./components/Posts"
 import { CardPost } from "./components/Home"
+import { HomePosts } from "./components/Home/index"
 
 function App() {
 
   return (
     <div className="App">
       <Header></Header>
+      <HomePosts></HomePosts>
       <Routes>
         <Route path = "/posts" element = {<ViewThread/>}
           ></Route>

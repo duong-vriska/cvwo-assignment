@@ -3,13 +3,12 @@ import { AiFillLike } from 'react-icons/ai'
 import { FaCommentAlt } from 'react-icons/fa'
 import "./Home.css";
 
-
-export const CardPost = () => {
+export const CardPost = (props: any) => {
   return (
     <div className="card-post">
-      <span className="text-wrapper">HEADING</span>
-      <span className="heading-2"> This is a post </span>
-      <span className="info">Posted on by </span>
+      <span className="title">{props.title}</span>
+      <span className="content"> {props.content} </span>
+      <span className="info"> Post {props.id} </span>
       <span className="likes"> <AiFillLike></AiFillLike> </span>
       <span className="comments"> <FaCommentAlt></FaCommentAlt> </span>
     </div>

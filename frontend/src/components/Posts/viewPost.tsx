@@ -7,12 +7,6 @@ import { FaCommentAlt, FaEdit } from 'react-icons/fa'
 import { MdDelete } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
 
-interface Post {
-    id: string;
-    title: string;
-    content: string;
-}
-
 export const ViewPost = (props: any) => {
     return (
         <div className="view-post">

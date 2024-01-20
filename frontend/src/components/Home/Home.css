@@ -1,16 +1,22 @@
+.post-wrapper {
+  align-self: center;
+}
+
 .card-post {
+    display: flex;   
+    margin-bottom: 1em;
     background-color: #ffffff;
     border: 1px solid;
     border-color: #000000;
     height: 110px;
-    width: 600px;
+    width: 500px;
     padding-block: 10px;
-    align-content: center;
     position: relative;
     margin-top: 10px;
+    margin-left: 10px;
   }
   
-  .card-post .text-wrapper {
+  .card-post .title {
     color: #000000;
     font-family: "Open Sans", bold;
     font-size: 25px;
@@ -22,7 +28,7 @@
     top: 25px;
   }
 
-  .card-post .heading-2 {
+  .card-post .content {
     color: #000000;
     font-family: "Open Sans";
     font-size: 15px;
