@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios'
 import { CardPost } from "./cardPost"
 import "./Home.css"
@@ -18,7 +19,7 @@ export const HomePosts = () => {
     });
 
     const fetchPosts = async() => {
-        const response = await client.get('/posts');
+        const response = await client.get(`/posts`);
         setPosts(response.data);
     }
 
@@ -29,13 +30,14 @@ export const HomePosts = () => {
     return (
         <div className="post-wrapper">
             {posts.map((post) => 
-            <CardPost
-            key={post.id} 
-            id={post.id}
-            title={post.title} 
-            content={post.content} 
-            />
-            )}
+            <Link to={`/posts/${post.id}`}>
+                <CardPost
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    content={post.content.substring(0, 60) + "..."}>
+                </CardPost>
+                </Link>)}
         </div>
     )
 }

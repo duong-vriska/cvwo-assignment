@@ -26,7 +26,10 @@ func (b PostHandler) GetPosts(w http.ResponseWriter, r *http.Request) {
 	if post == nil {
 		http.Error(w, "Book not found", http.StatusNotFound)
 	}
-	err := json.NewEncoder(w).Encode(post)
+
+	posts := []*Post{post}
+
+	err := json.NewEncoder(w).Encode(posts)
 	if err != nil {
 		http.Error(w, "Internal error", http.StatusInternalServerError)
 		return

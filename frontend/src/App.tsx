@@ -7,6 +7,7 @@ import PostCreator from "./components/Creator/createPost"
 import { ViewPost, ViewThread } from "./components/Posts"
 import { CardPost } from "./components/Home"
 import { HomePosts } from "./components/Home/index"
+import PostUpdate from "./components/Creator/updatePost"
 
 function App() {
 
@@ -15,9 +16,10 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path = "/" element = {<HomePosts/>}></Route>
-        <Route path = "/posts" element = {<ViewThread/>}
-          ></Route>
-        <Route path = "/new" element = { <PostCreator/>}></Route>
+        <Route path = "/posts" element = {<HomePosts/>}></Route>
+        <Route path = "/posts/:id" element = {<ViewThread/>}></Route>
+        <Route path = "new" element = { <PostCreator/>}></Route>
+        <Route path = "posts/:id/edit" element = {<PostUpdate/>}></Route>
       </Routes>
     </div>
   );

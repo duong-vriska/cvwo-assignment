@@ -6,8 +6,18 @@ import { IconButton } from '@mui/material';
 import { FaCommentAlt, FaEdit } from 'react-icons/fa'
 import { MdDelete } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
+import { useNavigate, Link } from "react-router-dom";
+
 
 export const ViewPost = (props: any) => {
+
+    const navigate = useNavigate();
+
+    const onDeleteClicked = () => {
+        props.deletePost(props.id);
+        navigate(`/`);
+    }
+
     return (
         <div className="view-post">
             <div className = "post-info">
@@ -32,15 +42,20 @@ export const ViewPost = (props: any) => {
                 <span> 0 </span>
             </span>
             <span className = "post-options">
-                <span className = "post-edit">
-                    <IconButton aria-label="delete-button" color = "inherit">
+                <span className = "post-delete">
+                    <IconButton 
+                        aria-label="delete-button" 
+                        color = "inherit"
+                        onClick = {onDeleteClicked}>
                         <MdDelete/>
                     </IconButton>
                 </span>
-                <span className = "post-delete">
+                <span className = "post-edit">
+                    <Link to={`/posts/${props.id}/edit`}> Edit Post
                     <IconButton>
                         <BsThreeDots/>
                     </IconButton>
+                    </Link>
                 </span>
             </span>
         </div>

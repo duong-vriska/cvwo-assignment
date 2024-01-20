@@ -1,29 +1,34 @@
-import {useState} from 'react'
-import { SelectCategory } from './selectCategory';
-import { useNavigate} from 'react-router-dom';
+import {useEffect, useState} from 'react'
+import {useNavigate, useParams, useDispatch} from 'react-router-dom'
+import axios from 'axios'
+import { SelectCategory } from './selectCategory'
 
-export default function AddPost(props: { addPost: (arg0: string, arg1: string) => void; }) {
+export default function EditPost(props: {
+    [x: string]: any; editPost: (arg0: string, arg1: string) => void; 
+}) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const navigate = useNavigate();
+    let {id} = useParams();
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        props.addPost(title, content);
+        props.editPost(title, content);
         setTitle('');
         setContent('');
-        navigate(`/posts`);
+        navigate(`/posts/${id}`);
     };    
-    
+
     return (
         <div
-        className = "create-post">
-        <div className = "create-wrapper">
-            <div className = "create-intro">
-                <h1> Create a new post </h1>
+        className = "edit-post">
+        <div className = "edit-wrapper">
+            <div className = "edit-intro">
+                <h1> You are editing post </h1>
             </div>
             <form onSubmit ={handleSubmit}>
                 <SelectCategory></SelectCategory>
-                <div className = "create-title">
+                <div className = "edit-title">
                 <input
                     type = "text"
                     required
@@ -32,7 +37,7 @@ export default function AddPost(props: { addPost: (arg0: string, arg1: string) =
                     onChange={(e) => setTitle(e.target.value)}
                 />
                 </div>
-                <div className = "create-content">
+                <div className = "edit-content">
                 <textarea
                     required
                     placeholder="Write something here..."
@@ -41,7 +46,7 @@ export default function AddPost(props: { addPost: (arg0: string, arg1: string) =
                 />
                 </div>
                 <button 
-                className = "create-button"
+                className = "saved-button"
                 type = "submit"> Submit
                 </button>
             </form>
@@ -49,4 +54,3 @@ export default function AddPost(props: { addPost: (arg0: string, arg1: string) =
         </div>
     )
 }
-

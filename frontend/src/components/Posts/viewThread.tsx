@@ -3,6 +3,7 @@ import axios from 'axios'
 import "./Posts.css"
 import { ViewPost } from "./viewPost"
 import { ViewComment } from "./viewComment"
+import { useParams } from 'react-router-dom'
 
 interface Post {
     id: string;
@@ -12,29 +13,39 @@ interface Post {
 
 export const ViewThread = () => {
 
+    const { id } = useParams();
+
     const [posts, setPosts] = useState<Post[]>([]);
   
     const client = axios.create({
-      baseURL: "http://localhost:4000"
+      baseURL: `http://localhost:4000`
     });
 
     const fetchPosts = async() => {
-        const response = await client.get('/posts');
+        const response = await client.get(`/posts/${id}`);
         setPosts(response.data);
     }
 
     useEffect(() => {
         fetchPosts()
-     }, []);    
+     }, [id]);
+
+    const deletePost = async(id: string) => {
+        const response = await client.delete(`/posts/${id}`);
+        setPosts(posts.filter((post) => {
+          return post.id !== id;
+        }))
+    };
 
     return (
         <div className="thread-wrapper">
-            {posts.map((post) => 
+            {posts.map((post) =>
             <ViewPost
             key={post.id} 
             id={post.id}
             title={post.title} 
             content={post.content} 
+            deletePost={deletePost}
             />
             )}
             <ViewComment></ViewComment>

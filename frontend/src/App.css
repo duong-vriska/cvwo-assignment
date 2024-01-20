@@ -17,3 +17,15 @@
     font-size: 50px;
   }
 }
+
+a {
+  color: gray; 
+}
+
+a:visited { 
+  color: gray; 
+ }
+
+ a:hover {
+  color: black;
+}

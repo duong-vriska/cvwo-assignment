@@ -65,3 +65,12 @@
     top: 90px;
   }
 
+  .card-post .navigate {
+    color: gray; 
+    font-family: "Open Sans";
+    font-size: 13px;
+    padding-top: 80px;
+    padding-left: 400px;
+
+  }
+
