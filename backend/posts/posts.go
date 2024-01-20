@@ -42,7 +42,7 @@ func (b PostStore) List() []*Post {
 }
 
 func (b PostStore) Create(post Post) {
-	post.ID = 
+	post.ID = generateRandomString(7) 
 	posts = append(posts, &post)
 }
 
