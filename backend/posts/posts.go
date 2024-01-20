@@ -1,17 +1,21 @@
 package posts
 
+import (
+	"github.com/duong-vriska/cvwo-assignment/backend/utils"
+)
+
 type Post struct {
-	ID      int `json:"id"`
+	ID      string `json:"id"`
 	Title   string `json:"title"`
 	Content string `json:"content"`
 }
 
 type PostStorage interface {
 	List() []*Post
-	Get(int) *Post
-	Update(int, Post) *Post
+	Get(string) *Post
+	Update(string, Post) *Post
 	Create(Post)
-	Delete(int) *Post
+	Delete(string) *Post
 }
 
 type PostStore struct{}
@@ -24,7 +28,7 @@ var posts = []*Post{
 	},
 }
 
-func (b PostStore) Get(id int) *Post {
+func (b PostStore) Get(id string) *Post {
 	for _, post := range posts {
 		if post.ID == id {
 			return post
@@ -38,10 +42,11 @@ func (b PostStore) List() []*Post {
 }
 
 func (b PostStore) Create(post Post) {
+	post.ID = 
 	posts = append(posts, &post)
 }
 
-func (b PostStore) Delete(id int) *Post {
+func (b PostStore) Delete(id string) *Post {
 	for i, post := range posts {
 		if post.ID == id {
 			posts = append(posts[:i], posts[i+1:]...)
@@ -51,7 +56,7 @@ func (b PostStore) Delete(id int) *Post {
 	return nil
 }
 
-func (b PostStore) Update(id int, postUpdate Post) *Post {
+func (b PostStore) Update(id string, postUpdate Post) *Post {
 	for i, post := range posts {
 		if post.ID == id {
 			posts[i] = &postUpdate
@@ -65,7 +70,7 @@ func listPosts() []*Post {
 	return posts
 }
 
-func getPost(id int) *Post {
+func getPost(id string) *Post {
 	for _, post := range posts {
 		if post.ID == id {
 			return post
@@ -78,7 +83,7 @@ func storePost(post Post) {
 	posts = append(posts, &post)
 }
 
-func deletePost(id int) *Post {
+func deletePost(id string) *Post {
 	for i, post := range posts {
 		if post.ID == id {
 			posts = append(posts[:i], (posts)[i+1:]...)
@@ -87,7 +92,7 @@ func deletePost(id int) *Post {
 	}
 	return nil
 }
-func updatePost(id int, postUpdate Post) *Post {
+func updatePost(id string, postUpdate Post) *Post {
 	for i, post := range posts {
 		if post.ID == id {
 			posts[i] = &postUpdate

@@ -22,7 +22,7 @@ func (b PostHandler) ListPosts(w http.ResponseWriter, r *http.Request) {
 }
 
 func (b PostHandler) GetPosts(w http.ResponseWriter, r *http.Request) {
-	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	id := chi.URLParam(r, "id")
 	post := b.storage.Get(id)
 	if post == nil {
 		http.Error(w, "Book not found", http.StatusNotFound)
@@ -55,7 +55,7 @@ func (b PostHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 
 func (b PostHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 	var post Post
-	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	id := chi.URLParam(r, "id")
 	err := json.NewDecoder(r.Body).Decode(&post)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -74,7 +74,7 @@ func (b PostHandler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (b PostHandler) DeletePost(w http.ResponseWriter, r *http.Request) {
-	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	id := chi.URLParam(r, "id")
 	post := b.storage.Delete(id)
 	if post == nil {
 		http.Error(w, "Post not found", http.StatusNotFound)
