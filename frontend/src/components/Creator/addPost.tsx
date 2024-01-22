@@ -1,6 +1,6 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { SelectCategory } from './selectCategory';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function AddPost(props: { addPost: (arg0: string, arg1: string) => void; }) {
     const [title, setTitle] = useState('');

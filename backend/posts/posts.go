@@ -5,9 +5,10 @@ import (
 )
 
 type Post struct {
-	ID      string `json:"id"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
+	ID       string `json:"id"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	Category string `json:"category"`
 }
 
 type PostStorage interface {
@@ -25,6 +26,7 @@ var posts = []*Post{
 		ID:      "1",
 		Title:   "The first post",
 		Content: "Mowou is a great place to discuss and share your ideas",
+		Category: "Announcement",
 	},
 }
 

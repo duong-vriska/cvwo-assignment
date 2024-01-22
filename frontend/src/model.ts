@@ -1,5 +1,5 @@
-export interface Article{
-    id: number;
-    article: string; 
-    isPublic: boolean; 
+export interface Post{
+    id: string;
+    title: string; 
+    content: string; 
 }

@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import "./Posts.css"
 import { AiFillLike } from 'react-icons/ai'
 import { IconButton } from '@mui/material';
-import { FaCommentAlt, FaEdit } from 'react-icons/fa'
+import { Reactions } from './reactionButtons';
 import { MdDelete } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
 import { useNavigate, Link } from "react-router-dom";
@@ -29,19 +29,8 @@ export const ViewPost = (props: any) => {
             <div className = "post-content">
                 {props.content}
             </div>
-            <span className = "post-likes">
-                <IconButton aria-label="like-button" color = "inherit">
-                    <AiFillLike/>
-                </IconButton>
-                <span> 0 </span>
-            </span>
-            <span className = "post-comments">
-                <IconButton aria-label="comment-button" color = "inherit"> 
-                    <FaCommentAlt/>
-                </IconButton>
-                <span> 0 </span>
-            </span>
-            <span className = "post-options">
+            <div className = "post-options">
+            <Reactions></Reactions>
                 <span className = "post-delete">
                     <IconButton 
                         aria-label="delete-button" 
@@ -57,7 +46,7 @@ export const ViewPost = (props: any) => {
                     </IconButton>
                     </Link>
                 </span>
-            </span>
+            </div>
         </div>
     )
 }

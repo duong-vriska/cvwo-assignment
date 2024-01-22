@@ -86,3 +86,19 @@ func (b PostHandler) DeletePost(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusNoContent)
 }
+
+func (b PostHandler) FilterPost(w http.ResponseWriter, r *http.Request) {
+	category := chi.URLParam(r, "category")
+	posts := b.storage.List()
+	filteredPosts := []*Post{}
+	for _, post := range posts {
+		if post.Category == category {
+			filteredPosts = append(filteredPosts, post)
+		}
+	}
+	err := json.NewEncoder(w).Encode(filteredPosts)
+	if err != nil {
+		http.Error(w, "Internal error", http.StatusInternalServerError)
+		return
+	}
+}

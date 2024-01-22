@@ -1,20 +1,40 @@
 package main
 
 import (
+	"net/http"
+	f "fmt"
+	"database/sql"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	. "github.com/duong-vriska/cvwo-assignment/backend/postHandler"
-
-	"net/http"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
-	r := setupServer()
-	err := http.ListenAndServe(":4000", r)
+	
+	db, err := sql.Open("mysql", "root:nmai1202@tcp(localhost:3306)/db")
 	if err != nil {
-		return
+		f.Println("Error validating SQL arguments")
+		panic(err.Error())
 	}
+
+	err = db.Ping()
+	if (err != nil) {
+		f.Println("Error validating SQL connection")
+		return 
+	}
+
+	insert,err := db.Query("INSERT INTO `db`.`post` (`id`, `title`, `content`) VALUES ('3', 'Hello World', 'This is a test post')")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	defer insert.Close()
+	f.Println("Successfully connected to SQL database")
+	defer db.Close()
+	http.ListenAndServe(":8080", setupServer())
 }
 
 func setupServer() chi.Router {
@@ -49,5 +69,6 @@ func PostRoutes() chi.Router {
 	r.Get("/{id}", postHandler.GetPosts)
 	r.Put("/{id}", postHandler.UpdatePost)
 	r.Delete("/{id}", postHandler.DeletePost)
+	r.Get("/search/{category}", postHandler.FilterPost)
 	return r
 }
