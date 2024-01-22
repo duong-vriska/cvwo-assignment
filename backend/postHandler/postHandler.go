@@ -1,6 +1,7 @@
 package postHandler
 
 import (
+	db "github.com/duong-vriska/cvwo-assignment/backend/database"
 	"encoding/json"
 	"net/http"
 
@@ -9,7 +10,7 @@ import (
 )
 
 type PostHandler struct {
-	storage PostStore
+	storage PostStorage
 }
 
 func (b PostHandler) ListPosts(w http.ResponseWriter, r *http.Request) {

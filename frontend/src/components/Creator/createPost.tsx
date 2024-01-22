@@ -8,6 +8,7 @@ interface Post {
     id: string;
     title: string;
     content: string;
+    category: string; 
 }
 
 export function PostCreator() {
@@ -31,10 +32,11 @@ export function PostCreator() {
         fetchPosts();
     }, []);
  
-    const addPost = async (title: any, content: any) => {
+    const addPost = async (title: any, content: any, category: any) => {
        let response = await client.post('/posts/new', {
           title: title,
           content: content,
+          category: category,
        });
        setPosts((prevPosts) => [response.data, ...prevPosts]);
     }; 

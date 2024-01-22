@@ -1,7 +1,4 @@
-import axios from 'axios';
-import {useEffect, useState} from 'react';
 import "./Posts.css"
-import { AiFillLike } from 'react-icons/ai'
 import { IconButton } from '@mui/material';
 import { Reactions } from './reactionButtons';
 import { MdDelete } from "react-icons/md";

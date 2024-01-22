@@ -2,15 +2,17 @@ import { useState } from 'react'
 import { SelectCategory } from './selectCategory';
 import { useNavigate } from 'react-router-dom';
 
-export function AddPost(props: { addPost: (arg0: string, arg1: string) => void; }) {
+export function AddPost(props: { addPost: (arg0: string, arg1: string, arg3: string) => void; }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [category, setCategory] = useState('');
     const navigate = useNavigate();
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        props.addPost(title, content);
+        props.addPost(title, content, category);
         setTitle('');
         setContent('');
+        setCategory('');
         setTimeout(() => {
             navigate(`/posts`);
         }, 10);
