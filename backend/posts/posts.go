@@ -1,6 +1,7 @@
 package posts
 
 import (
+	db "github.com/duong-vriska/cvwo-assignment/backend/database"
 	. "github.com/duong-vriska/cvwo-assignment/backend/utils"
 )
 
