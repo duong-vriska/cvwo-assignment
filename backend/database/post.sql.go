@@ -46,14 +46,13 @@ func (q *Queries) CategoryPost(ctx context.Context, category string) ([]Post, er
 
 const createPost = `-- name: CreatePost :execresult
 INSERT INTO posts (
-  id, post_id, title, content, category
+  post_id, title, content, category
 ) VALUES (
-  ?, ?, ?, ?, ? 
+  ?, ?, ?, ? 
 )
 `
 
 type CreatePostParams struct {
-	ID       int32  `json:"id"`
 	PostID   string `json:"post_id"`
 	Title    string `json:"title"`
 	Content  string `json:"content"`
@@ -62,7 +61,6 @@ type CreatePostParams struct {
 
 func (q *Queries) CreatePost(ctx context.Context, arg CreatePostParams) (sql.Result, error) {
 	return q.db.ExecContext(ctx, createPost,
-		arg.ID,
 		arg.PostID,
 		arg.Title,
 		arg.Content,
@@ -72,21 +70,21 @@ func (q *Queries) CreatePost(ctx context.Context, arg CreatePostParams) (sql.Res
 
 const deletePost = `-- name: DeletePost :exec
 DELETE FROM posts
-WHERE id = ?
+WHERE post_id = ?
 `
 
-func (q *Queries) DeletePost(ctx context.Context, id int32) error {
-	_, err := q.db.ExecContext(ctx, deletePost, id)
+func (q *Queries) DeletePost(ctx context.Context, postID string) error {
+	_, err := q.db.ExecContext(ctx, deletePost, postID)
 	return err
 }
 
 const getPost = `-- name: GetPost :one
 SELECT id, post_id, title, content, category FROM posts
-WHERE id = ? LIMIT 1
+WHERE post_id = ? LIMIT 1
 `
 
-func (q *Queries) GetPost(ctx context.Context, id int32) (Post, error) {
-	row := q.db.QueryRowContext(ctx, getPost, id)
+func (q *Queries) GetPost(ctx context.Context, postID string) (Post, error) {
+	row := q.db.QueryRowContext(ctx, getPost, postID)
 	var i Post
 	err := row.Scan(
 		&i.ID,
@@ -132,17 +130,27 @@ func (q *Queries) ListPost(ctx context.Context) ([]Post, error) {
 	return items, nil
 }
 
-const updatePost = `-- name: UpdatePost :exec
+const updatePost = `-- name: UpdatePost :execresult
 UPDATE posts 
 SET 
-  post_id = $2, 
-  title = $3, 
-  content = $4, 
-  category = $5
-WHERE id = $1
+title = ?,
+content = ?,
+category = ?
+WHERE post_id = ?
 `
 
-func (q *Queries) UpdatePost(ctx context.Context) error {
-	_, err := q.db.ExecContext(ctx, updatePost)
-	return err
+type UpdatePostParams struct {
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	Category string `json:"category"`
+	PostID   string `json:"post_id"`
+}
+
+func (q *Queries) UpdatePost(ctx context.Context, arg UpdatePostParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, updatePost,
+		arg.Title,
+		arg.Content,
+		arg.Category,
+		arg.PostID,
+	)
 }
