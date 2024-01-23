@@ -1,16 +1,119 @@
 package postHandler
 
 import (
-	db "github.com/duong-vriska/cvwo-assignment/backend/database"
 	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	. "github.com/duong-vriska/cvwo-assignment/backend/posts"
+	// . "github.com/duong-vriska/cvwo-assignment/backend/posts"
+	//"github.com/duong-vriska/cvwo-assignment/backend/database/schema"
+	"github.com/duong-vriska/cvwo-assignment/backend/utils"
 )
+
+type Post struct {
+	ID       int32  `json:"id"`
+	PostID   string `json:"post_id"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	Category string `json:"category"`
+}
+
+var posts = []*Post{
+    {
+        ID:      1,
+        PostID:  "MnsSh",
+        Title:   "The first post",
+        Content: "Mowou is a great place to discuss and share your ideas",
+        Category: "Announcement",
+    },
+}
+
+type PostStore struct{}
+
+type PostStorage interface {
+    List() []*Post
+    Get(string) *Post
+    Update(string, Post) *Post
+    Create(Post)
+    Delete(string) *Post
+}
 
 type PostHandler struct {
 	storage PostStorage
+}
+
+func (b PostStore) Get(id string) *Post {
+    for _, post := range posts {
+        if post.PostID == id {
+            return post
+        }
+    }
+    return nil
+}
+
+func (b PostStore) List() []*Post {
+    return posts
+}
+
+func (b PostStore) Create(post Post) {
+    post.PostID = utils.GenerateRandomString(5) 
+    posts = append(posts, &post)
+}
+
+func (b PostStore) Delete(id string) *Post {
+    for i, post := range posts {
+        if post.PostID == id {
+            posts = append(posts[:i], posts[i+1:]...)
+            return &Post{}
+        }
+    }
+    return nil
+}
+
+func (b PostStore) Update(id string, postUpdate Post) *Post {
+    for i, post := range posts {
+        if post.PostID == id {
+            posts[i] = &postUpdate
+            return post
+        }
+    }
+    return nil
+}
+
+func listPosts() []*Post {
+    return posts
+}
+
+func getPost(id string) *Post {
+    for _, post := range posts {
+        if post.PostID == id {
+            return post
+        }
+    }
+    return nil
+}
+
+func storePost(post Post) {
+    posts = append(posts, &post)
+}
+
+func deletePost(id string) *Post {
+    for i, post := range posts {
+        if post.PostID == id {
+            posts = append(posts[:i], (posts)[i+1:]...)
+            return &Post{}
+        }
+    }
+    return nil
+}
+func updatePost(id string, postUpdate Post) *Post {
+    for i, post := range posts {
+        if post.PostID == id {
+            posts[i] = &postUpdate
+            return post
+        }
+    }
+    return nil
 }
 
 func (b PostHandler) ListPosts(w http.ResponseWriter, r *http.Request) {

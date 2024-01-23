@@ -21,3 +21,11 @@ INSERT INTO posts (
 DELETE FROM posts
 WHERE id = ?;
 
+-- name: UpdatePost :exec
+UPDATE posts 
+SET 
+  post_id = $2, 
+  title = $3, 
+  content = $4, 
+  category = $5
+WHERE id = $1; 

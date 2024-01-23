@@ -1,7 +1,9 @@
 version: "2"
+cloud:
+  project: '01HMRVR98NMSANC3RDGM35MWRM'
 sql:
   - engine: "mysql"
-    queries: "query.sql"
+    queries: "post.sql"
     schema: "schema.sql"
     gen:
       go:
