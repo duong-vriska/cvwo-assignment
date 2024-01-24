@@ -1,33 +1,38 @@
 package main
 
 import (
-    "context"
 	"database/sql"
 	"net/http"
-    "log"
+	"log"
 	f "fmt"
+	//"os"
 
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	_ "github.com/golang-migrate/migrate/v4/database/mysql"
+	_ "github.com/joho/godotenv"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/chi/v5"
-    _ "github.com/go-sql-driver/mysql"
+	
+
     db "github.com/duong-vriska/cvwo-assignment/backend/database"
 	. "github.com/duong-vriska/cvwo-assignment/backend/domain/posts"
+	"github.com/duong-vriska/cvwo-assignment/backend/config"
 )
 
 type Server struct {
 	Version string
-
 	db *db.Queries
-
 	router chi.Router
 	httpServer *http.Server
 }
 
-func RunServer(version string, db *db.Queries) *Server {
+func RunServer() *Server{
 	s := &Server{
-		Version: version,
-		db: db,
+		Version: "1.0.0",
+		router: SetupServer(),
 	}
 
 	//http.ListenAndServe(":4000", SetupServer())
@@ -36,28 +41,39 @@ func RunServer(version string, db *db.Queries) *Server {
 }
 
 func (s *Server) RunDatabase(){
-	ctx := context.Background()
 
-	database, err := sql.Open("mysql", "root:nmai1202@(127.0.0.1:3306)/db?parseTime=true")
+    database, err := sql.Open(config.DbDriver(), config.DbSource())
 	if err != nil {
-		f.Println("Failed to connect to database!")
+		panic(err)
 	}
 
 	err = database.Ping()
 	if err != nil {
-		f.Println("Failed to ping database!")
+		panic(err)
 	}
 
-	queries := db.New(database)
-	s.db = queries 
+    queries := db.New(database)
+    s.db = queries
 
-	posts, err := queries.ListPost(ctx)
-	if err != nil {
-		return 
-	}
-	log.Println(posts)
+	f.Printf("Connected to %s database at %s\n", config.DbDriver(), config.DbSource())
 
-	return 
+    // Perform DB migration
+    DBMigration(config.MigrationURL(), config.DbSource())
+	defer database.Close()
+	
+}
+
+func DBMigration(migrationURL string, dbSource string) {
+    migration, err := migrate.New(migrationURL, "mysql://" + dbSource)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    if err = migration.Up(); err != nil && err != migrate.ErrNoChange {
+        log.Fatal("An error occurred while syncing the database: ", err) 
+    }
+
+    f.Println("Migrated!")
 }
 
 func SetupServer() chi.Router {
@@ -80,6 +96,7 @@ func SetupServer() chi.Router {
             return
         }
     })
+
     return r
 }
 
@@ -88,9 +105,9 @@ func (s *Server) Reroute() {
 }
 
 func main(){
-	s := RunServer("1.0.0", nil)
+	s := RunServer()
 	s.RunDatabase()
-	//s.Reroute()
+	s.Reroute()
 }
 
 
