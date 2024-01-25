@@ -10,7 +10,7 @@
 
 1. Fork this repo using `git clone https://github.com/duong-vriska/cvwo-assignment` on your CLI or easier, download via Code → Download as ZIP archive. 
 2. Download MySQL and setup your database.
-3. On a different terminal, run `cd backend && go run main.go` to start backend and database server at localhost://8005
+3. On a terminal, run `cd backend && go run main.go` to start backend and database server at localhost://8005
 4. On a different terminal, run `cd frontend && yarn start` to start client at localhost://3000
 
 ## Features
