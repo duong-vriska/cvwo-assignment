@@ -13,9 +13,9 @@ export const Header = () => {
           <img src="logo-mowou.png" width="100" height="50"></img></a>
       </div>
       </div>
-      <div className ="search-bar">
-        <SearchBar></SearchBar>
-      </div>
+      {/* <div className ="search-bar">
+        # <SearchBar></SearchBar>
+      </div> */}
       <nav className="home-profile">
           <Button 
           variant="text"
@@ -25,6 +25,14 @@ export const Header = () => {
           }
           }
           component = {Link} to = "/new">New Post
+          </Button>
+          <Button
+          variant='text'
+          sx={{
+            color: "black",
+            font: "inherit",
+          }}
+          component = {Link} to = "/login">Login
           </Button>
       </nav>
     </header>

@@ -1,23 +1,33 @@
 import {useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios'
-import { SelectCategory } from '../Creator/selectCategory'
+import Select from 'react-select/creatable';
 import { get } from 'http'
 
+const options = [
+    { value: 'news', label: 'News' },
+    { value: 'meme', label: 'Meme' },
+    { value: 'study', label: 'Study' },
+  ];
+
 export default function EditPost(props: {
-    [x: string]: any; editPost: (arg0: string, arg1: string) => void; 
+    [x: string]: any; editPost: (arg1: string, arg2: string, arg3: string) => void; 
 }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [category, setCategory] = useState('');
     let navigate = useNavigate();
     let {id} = useParams();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        props.editPost(title, content);
+        props.editPost(title, content, category);
         setTitle('');
         setContent('');
+        setCategory('');
+        setTimeout(() => {
         navigate(`/posts/${id}`);
+        }, 1000);
     };    
 
     return (
@@ -28,7 +38,16 @@ export default function EditPost(props: {
                 <h1> You are editing post </h1>
             </div>
             <form onSubmit ={handleSubmit}>
-                <SelectCategory></SelectCategory>
+                <Select
+                    options={options}
+                    value={options.find((obj) => obj.value === category)}
+                    onChange={(selectedOption) => {
+                        if (selectedOption) {
+                            setCategory(selectedOption.value);
+                        } else {
+                            setCategory('');
+                        }}}
+                    />
                 <div className = "edit-title">
                 <input
                     type = "text"

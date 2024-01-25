@@ -3,11 +3,14 @@ import {Link} from 'react-router-dom';
 import axios from 'axios'
 import { CardPost } from "./cardPost"
 import "./Home.css"
+import { CategoryButtons } from "../Category/buttonCategory"
 
 interface Post {
-    id: string;
+    key_id: any;
+    post_id: string;
     title: string;
     content: string;
+    category: string; 
 }
 
 export const HomePosts = () => {
@@ -15,7 +18,7 @@ export const HomePosts = () => {
     const [posts, setPosts] = useState<Post[]>([]);
   
     const client = axios.create({
-      baseURL: "http://localhost:4000"
+      baseURL: "http://localhost:8005"
     });
 
     const fetchPosts = async() => {
@@ -29,12 +32,14 @@ export const HomePosts = () => {
 
     return (
         <div className="post-wrapper">
+            <CategoryButtons/>
             {posts.map((post) => 
-            <Link to={`/posts/${post.id}`}>
+            <Link to={`/posts/${post.post_id}`}>
                 <CardPost
-                    key={post.id}
-                    id={post.id}
-                    title={post.title}
+                    key={post.key_id}
+                    id={post.post_id}
+                    category={post.category}
+                    title={post.title.substring(0,50)}
                     content={post.content.substring(0, 60) + "..."}>
                 </CardPost>
                 </Link>)}

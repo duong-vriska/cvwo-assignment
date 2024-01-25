@@ -17,13 +17,13 @@ export function PostCreator() {
     const navigate = useNavigate();
 
     const client = axios.create({
-        baseURL: "http://localhost:4000"
+        baseURL: "http://localhost:8005"
      });
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/posts');
+                const response = await client.get('/posts');
                 setPosts(response.data);
             } catch (error) {
                 console.error('Error fetching posts:', error);

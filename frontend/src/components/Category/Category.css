@@ -1,0 +1,31 @@
+.category-buttons {
+    position: absolute;
+    left: 30px;
+    right: 100px;
+    top: 60px;
+}
+
+.category-buttons .wrapper {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.category-buttons .tag-button {
+    border-radius: 30px;
+    padding: 5px 15px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    background-color: black;
+    color: white;
+    font-family: "Open Sans";
+    transition: 0.2s;
+}
+
+.category-buttons .tag-button:hover {
+    background-color: white;
+    color: gray;
+    cursor: pointer;
+}

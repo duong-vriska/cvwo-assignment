@@ -2,6 +2,8 @@ package posts
 
 import (
 	"net/http"
+	"log"
+	_ "fmt"
 
 	db "github.com/duong-vriska/cvwo-assignment/backend/database"
 	"github.com/duong-vriska/cvwo-assignment/backend/utils"
@@ -38,6 +40,17 @@ func (h *Handler) HandleGetPost(w http.ResponseWriter, r *http.Request) {
 	utils.WriteJSON(w, http.StatusOK, post)
 }
 
+func (h *Handler) HandleGetPostByCategory(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	category := chi.URLParam(r, "category")
+	posts, err := h.db.GetPost(ctx, category)
+	if err != nil {
+		utils.ErrorJSON(w, http.StatusInternalServerError, "Can't get")
+		return
+	}
+	utils.WriteJSON(w, http.StatusOK, posts)
+}
+
 func (h *Handler) HandleCreatePost(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	var post db.CreatePostParams
@@ -55,12 +68,18 @@ func (h *Handler) HandleUpdatePost(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	var post db.UpdatePostParams
 	utils.Parse(w, r, &post)
-	updatedPost, err := h.db.UpdatePost(ctx, post)
+	resUpdatePost, err := h.db.UpdatePost(ctx, post)
 	if err != nil {
 		utils.ErrorJSON(w, http.StatusInternalServerError, "Can't update")
 		return
 	}
-	utils.WriteJSON(w, http.StatusOK, updatedPost)
+	numAffected, err := resUpdatePost.RowsAffected()
+	if err != nil {
+		log.Fatal(err)
+		// utils.ErrorJSON(w, http.StatusInternalServerError, "Can't update")
+	}
+	log.Println("LOG:handler.go:59: the number of changed rows is", numAffected)
+	utils.WriteJSON(w, http.StatusOK, "updated")
 }
 
 func (h *Handler) HandleDeletePost(w http.ResponseWriter, r *http.Request) {

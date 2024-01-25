@@ -1,6 +1,14 @@
 import { useState } from 'react'
-import { SelectCategory } from './selectCategory';
 import { useNavigate } from 'react-router-dom';
+import Select from 'react-select/creatable';
+
+const options = [
+    { value: 'news', label: 'News' },
+    { value: 'entertainment', label: 'Entertainment' },
+    { value: 'food', label: 'Food' },
+    { value: 'study', label: 'Study' },
+    { value: 'sports', label: 'Sports' },
+  ];
 
 export function AddPost(props: { addPost: (arg0: string, arg1: string, arg3: string) => void; }) {
     const [title, setTitle] = useState('');
@@ -26,7 +34,16 @@ export function AddPost(props: { addPost: (arg0: string, arg1: string, arg3: str
                 <h1> Create a new post </h1>
             </div>
             <form onSubmit ={handleSubmit}>
-                <SelectCategory></SelectCategory>
+                <Select
+                options={options}
+                value={options.find((obj) => obj.value === category)}
+                onChange={(selectedOption) => {
+                    if (selectedOption) {
+                        setCategory(selectedOption.value);
+                    } else {
+                        setCategory('');
+                    }}}
+                />
                 <div className = "create-title">
                 <input
                     type = "text"

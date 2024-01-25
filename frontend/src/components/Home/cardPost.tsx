@@ -7,7 +7,7 @@ import "./Home.css";
 export const CardPost = (props: any) => {
   return (
     <div className="card-post">
-      <span className="info"> Post {props.id} </span>
+      <span className="info"> Post {props.category} </span>
       <span className="title">{props.title}</span>
       <span className="content"> {props.content} </span>
       <span className="likes"> <AiFillLike></AiFillLike> </span>

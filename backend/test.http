@@ -1,1 +1,12 @@
-GET http://localhost:8000/posts HTTP/1.1 
+PUT http://localhost:8005/posts/Cpe0C HTTP/1.1
+
+{
+    "post_id": "Cpe0C",
+    "title": "Updated title ",
+    "content": "Updated body"
+}
+
+####
+
+# Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column. 
+# To disable safe mode, toggle the option in Preferences -> SQL Editor and reconnect.
