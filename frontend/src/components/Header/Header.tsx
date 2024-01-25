@@ -2,7 +2,6 @@ import React from 'react'
 import "./Header.css";
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom';
-import { SearchBar } from './searchBar';
 
 export const Header = () => {
   return (
@@ -13,9 +12,6 @@ export const Header = () => {
           <img src="logo-mowou.png" width="100" height="50"></img></a>
       </div>
       </div>
-      {/* <div className ="search-bar">
-        # <SearchBar></SearchBar>
-      </div> */}
       <nav className="home-profile">
           <Button 
           variant="text"

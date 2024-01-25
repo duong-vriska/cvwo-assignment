@@ -23,7 +23,7 @@ export function AddPost(props: { addPost: (arg0: string, arg1: string, arg3: str
         setCategory('');
         setTimeout(() => {
             navigate(`/posts`);
-        }, 10);
+        }, 100);
     };    
     
     return (
