@@ -16,3 +16,5 @@
 ## Features
 
 - Basic CURD operations and a simple Category system. 
+
+<img width="1398" alt="Screenshot 2024-01-25 at 11 21 26 PM" src="https://github.com/duong-vriska/cvwo-assignment/assets/109259742/21ddef8d-7891-40e5-9c17-d1106379829e">
