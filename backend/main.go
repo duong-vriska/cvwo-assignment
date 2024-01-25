@@ -2,19 +2,14 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"net/http"
 	"log"
 	f "fmt"
-	//"os"
-	"context"
-
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/golang-migrate/migrate/v4/database/mysql"
-	_ "github.com/joho/godotenv"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/chi/v5/middleware"
@@ -23,7 +18,6 @@ import (
     db "github.com/duong-vriska/cvwo-assignment/backend/database"
 	posts "github.com/duong-vriska/cvwo-assignment/backend/domain/posts"
 	"github.com/duong-vriska/cvwo-assignment/backend/config"
-	//"github.com/duong-vriska/cvwo-assignment/backend/router"
 )
 
 type Server struct {
@@ -52,11 +46,6 @@ func main(){
 		r.Mount("/posts", posts.PostRouter(pHandler))
 	})
 
-	chi.Walk(r, func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
-		f.Printf("%s %s\n", method, route)
-		return nil
-	})
-	
 	f.Println("Server listen at :8005")
 	http.ListenAndServe(":8005", r)
 	
@@ -73,25 +62,9 @@ func (s *Server) RunDatabase(){
 		panic(err)
 	}
 
-	ctx := context.Background()
-    queries := db.New(database)
-    s.db = queries
-
-    posts, err := queries.GetPost(ctx, "abcde")
-    if err != nil {
-		f.Println("Error: ", err)
-        return
-    }
-
-    jsonData, err := json.Marshal(posts)
-    if err != nil {
-		f.Println("Error:", err)
-        return
-    }
-
-	f.Println(string(jsonData))
-
     DBMigration(config.MigrationURL(), config.DbSource())
+
+	s.db = db.New(database)
 
 }
 

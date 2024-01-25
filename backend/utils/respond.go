@@ -2,30 +2,17 @@ package utils
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 )
 
-func Respond(w http.ResponseWriter, statusCode int, payload interface{}) {
-    w.Header().Set("Content-Type", "application/json")
-    w.WriteHeader(statusCode)
+func WriteJSON(w http.ResponseWriter, code int, payload interface{}) {
+	response, _ := json.Marshal(payload)
 
-    if payload == nil {
-        return
-    }
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
+	w.Write(response)
+}
 
-    data, err := json.Marshal(payload)
-
-    if err != nil {
-        log.Println(err)
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-
-    _, err = w.Write(data)
-    if err != nil {
-        log.Println(err)
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+func ErrorJSON(w http.ResponseWriter, code int, msg string) {
+	WriteJSON(w, code, map[string]string{"message": msg})
 }

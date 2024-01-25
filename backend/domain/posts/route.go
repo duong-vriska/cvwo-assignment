@@ -4,7 +4,7 @@ import (
     "net/http"
 
 	"github.com/go-chi/chi/v5"
-)\
+)
 
 func PostRouter(pHandler *Handler) http.Handler {
 	r := chi.NewRouter()
