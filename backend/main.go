@@ -2,46 +2,67 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"net/http"
 	"log"
 	f "fmt"
 	//"os"
+	"context"
+
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/golang-migrate/migrate/v4/database/mysql"
 	_ "github.com/joho/godotenv"
-	"github.com/go-chi/chi/v5/middleware"
-	"github.com/go-chi/cors"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
+	"github.com/go-chi/chi/v5/middleware"
 	
 
     db "github.com/duong-vriska/cvwo-assignment/backend/database"
-	. "github.com/duong-vriska/cvwo-assignment/backend/domain/posts"
+	posts "github.com/duong-vriska/cvwo-assignment/backend/domain/posts"
 	"github.com/duong-vriska/cvwo-assignment/backend/config"
+	//"github.com/duong-vriska/cvwo-assignment/backend/router"
 )
 
 type Server struct {
-	Version string
 	db *db.Queries
-	router chi.Router
-	httpServer *http.Server
 }
 
-func RunServer() *Server{
-	s := &Server{
-		Version: "1.0.0",
-		router: SetupServer(),
-	}
+var s Server
 
-	//http.ListenAndServe(":4000", SetupServer())
-	f.Println("Server is running on port 4000")
-	return s
+func main(){
+	s.RunDatabase()
+	r:= chi.NewRouter()
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"https://*", "http://*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: false,
+		MaxAge:           300,
+	}))
+
+	pHandler := posts.NewHandler(s.db)
+
+	r.Route("/", func(r chi.Router) {
+		r.Mount("/posts", posts.PostRouter(pHandler))
+	})
+
+	chi.Walk(r, func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
+		f.Printf("%s %s\n", method, route)
+		return nil
+	})
+	
+	f.Println("Server listen at :8005")
+	http.ListenAndServe(":8005", r)
+	
 }
 
 func (s *Server) RunDatabase(){
-
     database, err := sql.Open(config.DbDriver(), config.DbSource())
 	if err != nil {
 		panic(err)
@@ -52,15 +73,26 @@ func (s *Server) RunDatabase(){
 		panic(err)
 	}
 
+	ctx := context.Background()
     queries := db.New(database)
     s.db = queries
 
-	f.Printf("Connected to %s database at %s\n", config.DbDriver(), config.DbSource())
+    posts, err := queries.GetPost(ctx, "abcde")
+    if err != nil {
+		f.Println("Error: ", err)
+        return
+    }
 
-    // Perform DB migration
+    jsonData, err := json.Marshal(posts)
+    if err != nil {
+		f.Println("Error:", err)
+        return
+    }
+
+	f.Println(string(jsonData))
+
     DBMigration(config.MigrationURL(), config.DbSource())
-	defer database.Close()
-	
+
 }
 
 func DBMigration(migrationURL string, dbSource string) {
@@ -75,40 +107,3 @@ func DBMigration(migrationURL string, dbSource string) {
 
     f.Println("Migrated!")
 }
-
-func SetupServer() chi.Router {
-    r := chi.NewRouter()
-    r.Use(middleware.Logger)
-    r.Use(cors.Handler(cors.Options{
-        // AllowedOrigins:   []string{"https://foo.com"}, // Use this to allow specific origin hosts
-        AllowedOrigins:   []string{"https://*", "http://*"},
-        // AllowOriginFunc:  func(r *http.Request, origin string) bool { return true },
-        AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-        AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
-        ExposedHeaders:   []string{"Link"},
-        AllowCredentials: false,
-        MaxAge:           300, // Maximum value not ignored by any of major browsers
-      }))
-
-    r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-        _, err := w.Write([]byte("OK"))
-        if err != nil {
-            return
-        }
-    })
-
-    return r
-}
-
-func (s *Server) Reroute() {
-	s.router.Mount("/posts", RunRouter(s.db))
-}
-
-func main(){
-	s := RunServer()
-	s.RunDatabase()
-	s.Reroute()
-}
-
-
-

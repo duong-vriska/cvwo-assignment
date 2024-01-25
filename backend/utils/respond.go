@@ -6,15 +6,26 @@ import (
 	"net/http"
 )
 
-// can you write for me the Message func here
-func Message(msg string) map[string]interface{} {
-	return map[string]interface{}{"Error!!!": msg}
-}
+func Respond(w http.ResponseWriter, statusCode int, payload interface{}) {
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(statusCode)
 
-// can you write for me the Respond func here
-func Respond(w http.ResponseWriter, status int, data interface{}) {
-	w.WriteHeader(status)
-	if err := json.NewEncoder(w).Encode(data); err != nil {
-		log.Fatal(err)
-	}
+    if payload == nil {
+        return
+    }
+
+    data, err := json.Marshal(payload)
+
+    if err != nil {
+        log.Println(err)
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    _, err = w.Write(data)
+    if err != nil {
+        log.Println(err)
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 }

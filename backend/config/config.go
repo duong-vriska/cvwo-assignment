@@ -20,7 +20,7 @@ func DbSource() string {
     if dbSource == "" {
         fmt.Println("DB_SOURCE environment variable not set")
     } else {
-        fmt.Println("DB_SOURCE: ", dbSource)
+        fmt.Println("OK SOURCE!")
     }
 
     return dbSource
@@ -42,7 +42,7 @@ func MigrationURL() string {
     if migrationURL == "" {
         fmt.Println("MIGRATION_URL environment variable not set")
     } else {
-        fmt.Println("MIGRATION_URL:", migrationURL)
+        fmt.Println("OK URL!")
     }
 
     return migrationURL

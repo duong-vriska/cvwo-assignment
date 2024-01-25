@@ -1,21 +1,17 @@
 package posts
 
 import (
-	db "github.com/duong-vriska/cvwo-assignment/backend/database"
+    "net/http"
 
 	"github.com/go-chi/chi/v5"
-)
+)\
 
-func RunRouter(db *db.Queries) *chi.Mux {
-    r := chi.NewRouter()
-
-    postHandler := NewHandler(db)
-
-    r.Get("/", postHandler.HandleListPosts)
-    r.Get("/{post_id}", postHandler.HandleGetPost)
-    r.Post("/new", postHandler.HandleUpdatePost)
-    r.Put("/{post_id}/edit", postHandler.HandleUpdatePost)
-    r.Delete("/{id}", postHandler.HandleDeletePost)
-
-    return r
+func PostRouter(pHandler *Handler) http.Handler {
+	r := chi.NewRouter()
+	r.Get("/", pHandler.HandleListPosts)
+    r.Get("/{post_id}", pHandler.HandleGetPost)
+    r.Post("/new", pHandler.HandleCreatePost)
+    r.Put("/{post_id}/edit", pHandler.HandleUpdatePost)
+    r.Delete("/{post_id}", pHandler.HandleDeletePost)
+	return r
 }
