@@ -16,9 +16,11 @@ function App() {
       <Routes>
         <Route path = "/" element = {<HomePosts/>}></Route>
         <Route path = "/login" element = {<LoginBox/>}></Route>
-        <Route path = "/posts" element = {<HomePosts/>}></Route>
-        <Route path = "/posts/:id" element = {<ViewThread/>}></Route>
-        <Route path = "/posts/:id/edit" element = {<PostUpdate/>}></Route>
+        <Route path = "/posts"> 
+          <Route index element = {<HomePosts/>}/>
+          <Route path = ":id" element = {<ViewThread/>}/>
+          <Route path = ":id/edit" element = {<PostUpdate/>}/>
+        </Route>
         <Route path = "new" element = { <PostCreator/>}></Route>
         {categories.map(category => (
           <Route

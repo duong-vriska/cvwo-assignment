@@ -6,8 +6,10 @@ import { get } from 'http'
 
 const options = [
     { value: 'news', label: 'News' },
-    { value: 'meme', label: 'Meme' },
+    { value: 'entertainment', label: 'Entertainment' },
+    { value: 'food', label: 'Food' },
     { value: 'study', label: 'Study' },
+    { value: 'sports', label: 'Sports' },
   ];
 
 export default function EditPost(props: {
