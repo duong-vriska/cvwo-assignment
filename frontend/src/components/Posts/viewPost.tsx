@@ -23,7 +23,7 @@ export const ViewPost = (props: any) => {
     return (
         <div className="view-post">
             <div className = "post-info">
-                Tag: {props.category}
+                Category: {props.category}
             </div>
             <div className = "post-title"> 
                 {props.title}

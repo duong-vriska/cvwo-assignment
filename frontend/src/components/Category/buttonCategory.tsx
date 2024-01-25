@@ -37,6 +37,3 @@ export const CategoryButtons = () => {
         </div>
     )
 }
-
-// a button for the "News" category
-// a button for the "Sports" category 

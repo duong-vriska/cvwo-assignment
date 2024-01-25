@@ -5,11 +5,11 @@ import Select from 'react-select/creatable';
 import { get } from 'http'
 
 const options = [
-    { value: 'news', label: 'News' },
-    { value: 'entertainment', label: 'Entertainment' },
-    { value: 'food', label: 'Food' },
-    { value: 'study', label: 'Study' },
-    { value: 'sports', label: 'Sports' },
+    { value: 'News', label: 'News' },
+    { value: 'Entertainment', label: 'Entertainment' },
+    { value: 'Food', label: 'Food' },
+    { value: 'Study', label: 'Study' },
+    { value: 'Sports', label: 'Sports' },
   ];
 
 export default function EditPost(props: {

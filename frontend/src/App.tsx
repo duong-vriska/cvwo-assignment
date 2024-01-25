@@ -25,8 +25,8 @@ function App() {
         {categories.map(category => (
           <Route
             key={category.path}
-            path={`/posts/category/${category.path}`}
-            element={<CategorizedPosts value={category.value} />}/>
+            path={`/posts/category/${category.value}`}
+            element={<CategorizedPosts value={category.path} />}/>
         ))} 
       </Routes>
     </div>
@@ -34,11 +34,11 @@ function App() {
 };
 
 const categories = [
-  { path: 'news', value: 'news' },
-  { path: 'entertainment', value: 'entertainment' },
-  { path: 'food', value: 'food' },
-  { path: 'study', value: 'study' },
-  { path: 'sports', value: 'sports' },
+  { path: 'News', value: 'news' },
+  { path: 'Entertainment', value: 'entertainment' },
+  { path: 'Food', value: 'food' },
+  { path: 'Study', value: 'study' },
+  { path: 'Sports', value: 'sports' },
 ];
 
 export default App;

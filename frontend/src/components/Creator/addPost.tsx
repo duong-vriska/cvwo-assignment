@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select/creatable';
 
 const options = [
-    { value: 'news', label: 'News' },
-    { value: 'entertainment', label: 'Entertainment' },
-    { value: 'food', label: 'Food' },
-    { value: 'study', label: 'Study' },
-    { value: 'sports', label: 'Sports' },
+    { value: 'News', label: 'News' },
+    { value: 'Entertainment', label: 'Entertainment' },
+    { value: 'Food', label: 'Food' },
+    { value: 'Study', label: 'Study' },
+    { value: 'Sports', label: 'Sports' },
   ];
 
 export function AddPost(props: { addPost: (arg0: string, arg1: string, arg3: string) => void; }) {
